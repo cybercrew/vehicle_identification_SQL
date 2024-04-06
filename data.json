@@ -1,0 +1,62 @@
+[
+    {
+        "vehicleOwner": "Ehsan Quddusi",
+        "vehicleNumber": "JK04R6946",
+        "type": "faculty",
+        "timeEntered": "11:19"
+    },
+    {
+        "vehicleOwner": "Ehsan Quddusi",
+        "vehicleNumber": "JK04R6946",
+        "type": "faculty",
+        "timeEntered": "13:11"
+    },
+    {
+        "vehicleOwner": "Meesam",
+        "vehicleNumber": "JK04R6946",
+        "type": "student",
+        "timeEntered": "13:21"
+    },
+    {
+        "vehicleOwner": "Hammad",
+        "vehicleNumber": "JK04R6646",
+        "type": "student",
+        "timeEntered": "13:23"
+    },
+    {
+        "vehicleOwner": "Hammad",
+        "vehicleNumber": "JK04R6646",
+        "type": "student",
+        "timeEntered": "13:23"
+    },
+    {
+        "vehicleOwner": "Hammad",
+        "vehicleNumber": "JK04R6646",
+        "type": "student",
+        "timeEntered": "13:23"
+    },
+    {
+        "vehicleOwner": "Meesam",
+        "vehicleNumber": "JK04R6946",
+        "type": "student",
+        "timeEntered": "13:27"
+    },
+    {
+        "vehicleOwner": "Meesam",
+        "vehicleNumber": "JK04R6946",
+        "type": "student",
+        "timeEntered": "13:34"
+    },
+    {
+        "vehicleOwner": "Meesam",
+        "vehicleNumber": "JK04R6946",
+        "type": "student",
+        "timeEntered": "14:10"
+    },
+    {
+        "vehicleOwner": "Meesam",
+        "vehicleNumber": "JK04R6946",
+        "type": "student",
+        "timeEntered": "14:17"
+    }
+]
