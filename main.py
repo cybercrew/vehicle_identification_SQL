@@ -9,6 +9,9 @@ def withoutSpecialCharacters(text):
             print("Error in removing special chars:")
             print("Text: ", text)
     return text
+def gateOpen():
+    #Opens Gate
+    print("Gate Opened")
 event="all"
 x1 = int(input("""Enter type of event
 1 = Faculty only
@@ -26,25 +29,33 @@ if(x1==3):
     arr =["student", "faculty"]
 if(x1==4):
     arr = ["student", "faculty", "guest"]
-if(x1==4):
+if(x1==5):
     arr = ["faculty", "guest"]
 carNo = withoutSpecialCharacters(capture_photo()) #Working
 print(carNo)
-#print(readJSON()) #
+
 initialiseTable()
-J = readSQL()
-print("SQL Data:", J)
-def gateOpen():
-    #Opens Gate
-    print("Gate Opened")
-if(carNo in J):
+saved_db = readSQL()
+print("SQL Data:", saved_db)
+numberplates = []
+for i in saved_db:
+    numberplates.append(i['vehicleNumber'])
+
+if(carNo in numberplates):
     print("Found in Database")
-    print(f"Name: {J[carNo]['name']}\nType: {J[carNo]['type']}")
-    if(J[carNo]['type'] in arr):
-        print("Entry Permitted")
-        gateOpen()
-        writeToSQL(readSQL()[carNo]['name'], carNo, readSQL()[carNo]['type'])
-    else:
-        print("Entry Denied")
-else:
-    print("Entry Denied")
+    print(f"Name: {saved_db[carNo]['name']}\nType: {saved_db[carNo]['type']}")
+for i in saved_db:
+    global flagFound 
+    flagFound = False
+    if i['vehicleNumber'] == carNo:
+        flagFound = True
+        if i['ownerType'] in arr:
+            print("Entry Permitted")
+            gateOpen()
+            writeToSQL(i['vehicleOwner'], i['vehicleNumber'], i['ownerType'], "True")
+        else:
+            print("Entry Denied - Owner Type Mismatch")
+            writeToSQL(i['vehicleOwner'], i['vehicleNumber'], i['ownerType'], "False")
+if not flagFound:
+    print("Entry Denied - Not Found in Database")
+    writeToSQL("Unkown", carNo, "Unknown", "False")

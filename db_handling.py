@@ -16,7 +16,7 @@ def initialiseTable():
             ownerType TEXT,
             vehicleOwner TEXT,
             vehicleNumber TEXT,
-            entryAllowed BOOLEAN
+            entryAllowed TEXT
         )
     ''')
 
@@ -30,11 +30,12 @@ def writeToSQL(owner, number, ownerType, entryAllowed):
     
     # Insert new data
     new_data = (time.strftime("%H:%M", time.localtime(time.time())), ownerType, owner, number, entryAllowed)
+    print("Writing the following:", new_data)
     cursor.execute('''
         INSERT INTO vehicle_entries (timeEntered, ownerType, vehicleOwner, vehicleNumber, entryAllowed)
         VALUES (?, ?, ?, ?, ?)
     ''', new_data)
-    
+    print("wrote")
     # Commit changes and close connection
     conn.commit()
     conn.close()
