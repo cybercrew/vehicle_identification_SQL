@@ -15,31 +15,32 @@ def extract_text_from_image(image_path):
         print(f"An error occurred: {e}")
         return None
 def capture_photo():
-    #camera = cv2.VideoCapture(0)
+    camera = cv2.VideoCapture(0)
 
-    #if not camera.isOpened():
-        #print("Error: Couldn't access the camera")
-       # return
+    if not camera.isOpened():
+        print("Error: Couldn't access the camera")
+        return None
     
-   #ret, frame = camera.read() #if ret:
-    i = cv2.imread("sample.png")
-    cv2.imshow('Captured Photo', i)
-    time.sleep(0.5)
-    gray = cv2.cvtColor(i, cv2.COLOR_BGR2GRAY)
-    t = time.time()
-    cv2.imwrite(f'./temp/{t}_u.jpg', gray)
-    fname = f"./temp/{t}_u.jpg"
-    img = cv2.imread(fname)
-    """
-    resized_img = cv2.resize(img, (640, 480))
-    fnamer = f"./temp/{t}.jpg"
-    cv2.imwrite(fnamer, resized_img)
-    """
-    print(f"Photo captured and saved as '{t}_u.jpg'")
-    extracted_text = extract_text_from_image(fname)
-    #cv2.destroyAllWindows()
-    return extracted_text
-   # else:
-  #      print("Error: Couldn't capture photo")
+    ret, frame = camera.read() 
+    if ret:
+        t = time.time()
+        fname = f"./temp/{t}_u.jpg"
+        gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
+        cv2.imwrite(fname, gray)
+        print(f"Photo captured and saved as '{fname}'")
 
-    #camera.release()
+        img = cv2.imread(fname)
+        if img is None:
+            print(f"Error: Couldn't read the image file '{fname}'")
+            return None
+
+        resized_img = cv2.resize(img, (640, 480))
+        fnamer = f"./temp/{t}.jpg"
+        cv2.imwrite(fnamer, resized_img)
+        print(f"Resized photo saved as '{fnamer}'")
+
+        extracted_text = extract_text_from_image(fname)
+        return extracted_text
+    else:
+        print("Error: Couldn't capture photo")
+        return None

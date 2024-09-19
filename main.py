@@ -3,7 +3,11 @@ from wtj import writeToJSON, readJSON
 l = ['\n', ' ', '@', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', "'", '<', ',', '>', '.', '?', '/', '`', '~']
 def withoutSpecialCharacters(text):
     for i in l:
-        text = text.replace(i, "")
+        try:
+            text = text.replace(i, "")
+        except: 
+            print("Error in removing special chars:")
+            print("Text: ", text)
     return text
 event="all"
 x1 = int(input("""Enter type of event
