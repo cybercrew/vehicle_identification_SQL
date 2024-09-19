@@ -1,5 +1,5 @@
 from capture import capture_photo
-from db_handling import writeToSQL, readSQL
+from db_handling import writeToSQL, readSQL, initialiseTable
 l = ['\n', ' ', '@', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', "'", '<', ',', '>', '.', '?', '/', '`', '~']
 def withoutSpecialCharacters(text):
     for i in l:
@@ -30,8 +30,10 @@ if(x1==4):
     arr = ["faculty", "guest"]
 carNo = withoutSpecialCharacters(capture_photo()) #Working
 print(carNo)
-#print(readJSON()) #Working
+#print(readJSON()) #
+initialiseTable()
 J = readSQL()
+print("SQL Data:", J)
 def gateOpen():
     #Opens Gate
     print("Gate Opened")

@@ -2,8 +2,9 @@ import sqlite3
 import time
 import json
 
-def writeToSQL(owner, number, ownerType, entryAllowed):
-    db_path = "data.db"
+
+def initialiseTable():
+    db_path = "cars.db"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
@@ -18,6 +19,14 @@ def writeToSQL(owner, number, ownerType, entryAllowed):
             entryAllowed BOOLEAN
         )
     ''')
+
+def writeToSQL(owner, number, ownerType, entryAllowed):
+    db_path = "cars.db"
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    # Create table if it doesn't exist
+    initialiseTable()
     
     # Insert new data
     new_data = (time.strftime("%H:%M", time.localtime(time.time())), ownerType, owner, number, entryAllowed)
@@ -31,23 +40,21 @@ def writeToSQL(owner, number, ownerType, entryAllowed):
     conn.close()
 
 def readSQL():
-    db_path = "data.db"
+    db_path = "savedcars.db"
     conn = sqlite3.connect(db_path)
     cursor = conn.cursor()
     
     # Query the vehicle_entries table
-    cursor.execute('SELECT timeEntered, ownerType, vehicleOwner, vehicleNumber, entryAllowed FROM vehicle_entries')
+    cursor.execute('SELECT vehicleNumber, vehicleOwner, ownerType FROM saved_cars')
     rows = cursor.fetchall()
     
     # Convert the rows to a list of dictionaries
     data = []
     for row in rows:
         entry = {
-            "timeEntered": row[0],
-            "ownerType": row[1],
-            "vehicleOwner": row[2],
-            "vehicleNumber": row[3],
-            "entryAllowed": bool(row[4])
+            "vehicleNumber": row[0],            
+            "vehicleOwner": row[1],
+            "ownerType": row[2]
         }
         data.append(entry)
     
