@@ -1,5 +1,5 @@
 from capture import capture_photo
-from wtj import writeToJSON, readJSON
+from db_handling import writeToSQL, readSQL
 l = ['\n', ' ', '@', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', "'", '<', ',', '>', '.', '?', '/', '`', '~']
 def withoutSpecialCharacters(text):
     for i in l:
@@ -31,7 +31,7 @@ if(x1==4):
 carNo = withoutSpecialCharacters(capture_photo()) #Working
 print(carNo)
 #print(readJSON()) #Working
-J = readJSON()
+J = readSQL()
 def gateOpen():
     #Opens Gate
     print("Gate Opened")
@@ -41,7 +41,7 @@ if(carNo in J):
     if(J[carNo]['type'] in arr):
         print("Entry Permitted")
         gateOpen()
-        writeToJSON(readJSON()[carNo]['name'], carNo, readJSON()[carNo]['type'])
+        writeToSQL(readSQL()[carNo]['name'], carNo, readSQL()[carNo]['type'])
     else:
         print("Entry Denied")
 else:
