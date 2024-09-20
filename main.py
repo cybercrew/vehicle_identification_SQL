@@ -10,10 +10,12 @@ def withoutSpecialCharacters(text):
             print("Text: ", text)
     return text
 def gateOpen():
-    #Opens Gate
+    # Opens Gate
     print("Gate Opened")
+
 event="all"
-x1 = int(input("""Enter type of event
+x1 = int(input("""
+Enter type of event
 1 = Faculty only
 2 = Students only
 3 = Students and Faculty
@@ -21,6 +23,7 @@ x1 = int(input("""Enter type of event
 5 = Guest and Faculty
 """
 ))
+# Declare flag variable which will be set to True if the vehicle is found in the database
 flagFound = False
 
 arr = []
@@ -60,4 +63,4 @@ for i in saved_db:
             writeToSQL(i['vehicleOwner'], i['vehicleNumber'], i['ownerType'], "False")
 if not flagFound:
     print("Entry Denied - Not Found in Database")
-    writeToSQL("Unkown", carNo, "Unknown", "False")
+    writeToSQL("Unknown", carNo, "Unknown", "False")

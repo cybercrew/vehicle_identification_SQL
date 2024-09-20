@@ -1,7 +1,5 @@
 import sqlite3
 import time
-import json
-
 
 def initialiseTable():
     db_path = "cars.db"
