@@ -38,7 +38,13 @@ def capture_photo():
         fnamer = f"./temp/{t}.jpg"
         cv2.imwrite(fnamer, resized_img)
         print(f"Resized photo saved as '{fnamer}'")
-
+        # Display the image 
+        cv2.namedWindow('Captured Image', cv2.WINDOW_NORMAL)
+    # Set the window to be always on top
+        cv2.setWindowProperty('Captured Image', cv2.WND_PROP_TOPMOST, 1)
+        cv2.imshow('Captured Image', resized_img)
+        cv2.waitKey(2000)  # Wait for specified time
+        cv2.destroyAllWindows()
         extracted_text = extract_text_from_image(fname)
         return extracted_text
     else:

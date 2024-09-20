@@ -1,6 +1,6 @@
 from capture import capture_photo
 from db_handling import writeToSQL, readSQL, initialiseTable
-l = ['\n', ' ', '@', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', "'", '<', ',', '>', '.', '?', '/', '`', '~']
+l = ['“','\n', ' ', '@', '!', '#', '$', '%', '^', '&', '*', '(', ')', '_', '-', '+', '=', '{', '[', '}', ']', '|', '\\', ':', ';', '"', "'", '<', ',', '>', '.', '?', '/', '`', '~']
 def withoutSpecialCharacters(text):
     for i in l:
         try:
@@ -19,38 +19,40 @@ x1 = int(input("""Enter type of event
 3 = Students and Faculty
 4 = All allowed
 5 = Guest and Faculty
-"""))
+"""
+))
+flagFound = False
+
 arr = []
 if(x1==1):
-    arr =["faculty"]
+    arr =["Faculty"]
 if(x1==2):
-    arr = ["student"]
+    arr = ["Student"]
 if(x1==3):
-    arr =["student", "faculty"]
+    arr =["Student", "Faculty"]
 if(x1==4):
-    arr = ["student", "faculty", "guest"]
+    arr = ["Student", "Faculty", "Guest"]
 if(x1==5):
-    arr = ["faculty", "guest"]
+    arr = ["Faculty", "Guest"]
 carNo = withoutSpecialCharacters(capture_photo()) #Working
-print(carNo)
+
+print("Read Vehicle Number:", carNo)
 
 initialiseTable()
 saved_db = readSQL()
-print("SQL Data:", saved_db)
+# print("SQL Data:", saved_db)
 numberplates = []
 for i in saved_db:
     numberplates.append(i['vehicleNumber'])
 
 if(carNo in numberplates):
     print("Found in Database")
-    print(f"Name: {saved_db[carNo]['name']}\nType: {saved_db[carNo]['type']}")
 for i in saved_db:
-    global flagFound 
-    flagFound = False
+    
     if i['vehicleNumber'] == carNo:
         flagFound = True
         if i['ownerType'] in arr:
-            print("Entry Permitted")
+            print(f"Entry Permitted to: {i['vehicleOwner']}, {i['ownerType']}; Vehicle Number: {i['vehicleNumber']}")
             gateOpen()
             writeToSQL(i['vehicleOwner'], i['vehicleNumber'], i['ownerType'], "True")
         else:
