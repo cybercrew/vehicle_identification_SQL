@@ -61,3 +61,28 @@ def readSQL():
     conn.close()
     
     return data
+
+def registerCar(vehicleNumber, vehicleOwner, ownerType):
+    db_path = "savedcars.db"
+    conn = sqlite3.connect(db_path)
+    cursor = conn.cursor()
+    
+    # Create table if it doesn't exist
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS saved_cars (
+            vehicleNumber TEXT PRIMARY KEY,
+            vehicleOwner TEXT,
+            ownerType TEXT
+        )
+    ''')
+    
+    # Insert new data
+    new_data = (vehicleNumber, vehicleOwner, ownerType)
+    cursor.execute('''
+        INSERT INTO saved_cars (vehicleNumber, vehicleOwner, ownerType)
+        VALUES (?, ?, ?)
+    ''', new_data)
+    
+    # Commit changes and close connection
+    conn.commit()
+    conn.close()
